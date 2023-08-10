@@ -1,0 +1,26 @@
+services:
+  webapp:
+    image: vjiaigepc/webui:v1.4
+    environment:
+      DB_HOST: telepocdb
+      DB_USER: root
+      DB_PASS: telenorpoc
+      DB_DB: mqtt_db
+    ports:
+      - "3001:3001"
+    container_name: webapp
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:latest
+    volumes:
+      - telenor_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: telenorpoc
+      MYSQL_DATABASE: mqtt_db
+    ports:
+     - "30001:3306"
+    container_name: telepocdb
+
+volumes:
+  telenor_data:
